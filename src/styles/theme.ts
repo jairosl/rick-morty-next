@@ -1,11 +1,11 @@
 const theme = {
   colors: {
     background: '#f8f8f8',
-    text: '#777777',
-    primary: '#228a95',
-    secondary: '#ef9c4b',
-    blue: '#187680',
-    orange: '#fd8030',
+    text: '#44281d',
+    primary: '#97ce4c',
+    secondary: '#f0e14a',
+    orange: '#e4a788',
+    pink: '#e89ac7',
   },
 };
 
