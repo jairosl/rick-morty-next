@@ -8,7 +8,7 @@ const Styles = createGlobalStyle`
   }
   body {
     background: #fff;
-    color: ${props => props.theme.colors.primary};
+    color: ${props => props.theme.colors.text};
     font: 400 16px Roboto, sans-serif;
   }
 `;
