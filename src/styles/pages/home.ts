@@ -22,3 +22,57 @@ export const Container = styled.div`
     bottom: -85px;
   }
 `;
+
+export const CardContainer = styled.main`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18em;
+  margin-bottom: 10em;
+
+  div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+  }
+
+  // Small devices (landscape phones, 576px and up)
+  @media (min-width: 275px) {
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+
+  // Medium devices (tablets, 768px and up)
+  @media (min-width: 768px) {
+    div {
+      max-width: 700px;
+      max-width: 900px;
+
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 2em;
+    }
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    div {
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 2em;
+    }
+  }
+
+  // Extra large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    div {
+      max-width: 1000px;
+    }
+  }
+`;

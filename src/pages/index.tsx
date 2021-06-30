@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-
+import Card from '../components/Card';
 import Header from '../components/Header';
 import Search from '../components/Search';
 import { api } from '../services/Api';
-
-import { Container } from '../styles/pages/home';
+import { CardContainer, Container } from '../styles/pages/home';
 
 interface Character {
   id: number;
@@ -26,6 +25,8 @@ interface ApiResponse {
 
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
+  const [loader, setLoader] = useState(true);
+  const [characters, setCharacters] = useState<Character[]>([]);
 
   const handleChangeSearchValue = useCallback((data: string) => {
     setSearchValue(data);
@@ -33,7 +34,9 @@ export default function Home() {
 
   useEffect(() => {
     api.get('/character').then(res => {
-      res.data as ApiResponse;
+      const { results } = res.data as ApiResponse;
+      setCharacters(results);
+      setLoader(false);
     });
   }, []);
 
@@ -48,6 +51,17 @@ export default function Home() {
           changeValue={handleChangeSearchValue}
         />
       </Container>
+      <CardContainer>
+        <div>
+          {characters.map(character => (
+            <Card
+              key={character.id}
+              image={character.image}
+              name={character.name}
+            />
+          ))}
+        </div>
+      </CardContainer>
     </>
   );
 }
