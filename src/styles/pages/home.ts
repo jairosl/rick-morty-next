@@ -73,3 +73,20 @@ export const CardContainer = styled.main`
     }
   }
 `;
+
+export const ButtonViewMore = styled.button`
+  border: none;
+  max-height: 100%;
+  min-height: 350px;
+
+  max-width: 100%;
+  min-width: 300px;
+
+  border-radius: 8px;
+  cursor: pointer;
+
+  background: ${props => props.theme.colors.pink};
+  font-size: 20px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.text};
+`;

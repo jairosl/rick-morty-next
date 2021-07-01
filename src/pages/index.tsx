@@ -7,7 +7,7 @@ import Search from '../components/Search';
 
 import { api } from '../services/Api';
 
-import { CardContainer, Container } from '../styles/pages/home';
+import { CardContainer, Container, ButtonViewMore } from '../styles/pages/home';
 import loaderAnimated from '../assets/loading-screen-loader-spinning-circle.json';
 
 interface Character {
@@ -31,11 +31,27 @@ interface ApiResponse {
 export default function Home() {
   const [searchValue, setSearchValue] = useState('');
   const [loader, setLoader] = useState(true);
+  const [page, setPage] = useState(1);
+  const [isMoreCharacters, setIsMoreCharacters] = useState(true);
   const [characters, setCharacters] = useState<Character[]>([]);
 
   const handleChangeSearchValue = useCallback((data: string) => {
     setSearchValue(data);
   }, []);
+
+  const handleModalVisible = useCallback(() => {}, []);
+
+  const handleViewMore = async () => {
+    const { data } = await api.get(`/character?page=${page}`);
+    const { info, results } = data as ApiResponse;
+    if (info.next) {
+      setIsMoreCharacters(true);
+    } else {
+      setIsMoreCharacters(false);
+    }
+
+    setCharacters([...characters, ...results]);
+  };
 
   useEffect(() => {
     api
@@ -43,6 +59,7 @@ export default function Home() {
       .then(res => {
         const { results } = res.data as ApiResponse;
         setCharacters(results);
+        setPage(page + 1);
       })
       .finally(() => {
         setLoader(false);
@@ -75,8 +92,12 @@ export default function Home() {
                 key={character.id}
                 image={character.image}
                 name={character.name}
+                onClick={handleModalVisible}
               />
             ))}
+            {isMoreCharacters && (
+              <ButtonViewMore onClick={handleViewMore}>Ver Mais</ButtonViewMore>
+            )}
           </div>
         )}
       </CardContainer>
