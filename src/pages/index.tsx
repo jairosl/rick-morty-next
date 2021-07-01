@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
+import Lottie from 'react-lottie';
+
 import Card from '../components/Card';
 import Header from '../components/Header';
 import Search from '../components/Search';
+
 import { api } from '../services/Api';
+
 import { CardContainer, Container } from '../styles/pages/home';
+import loaderAnimated from '../assets/loading-screen-loader-spinning-circle.json';
 
 interface Character {
   id: number;
@@ -33,12 +38,22 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    api.get('/character').then(res => {
-      const { results } = res.data as ApiResponse;
-      setCharacters(results);
-      setLoader(false);
-    });
+    api
+      .get('/character')
+      .then(res => {
+        const { results } = res.data as ApiResponse;
+        setCharacters(results);
+      })
+      .finally(() => {
+        setLoader(false);
+      });
   }, []);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loaderAnimated,
+  };
 
   return (
     <>
@@ -52,15 +67,18 @@ export default function Home() {
         />
       </Container>
       <CardContainer>
-        <div>
-          {characters.map(character => (
-            <Card
-              key={character.id}
-              image={character.image}
-              name={character.name}
-            />
-          ))}
-        </div>
+        {loader && <Lottie options={defaultOptions} height={400} width={400} />}
+        {!loader && (
+          <div className="Cards">
+            {characters.map(character => (
+              <Card
+                key={character.id}
+                image={character.image}
+                name={character.name}
+              />
+            ))}
+          </div>
+        )}
       </CardContainer>
     </>
   );

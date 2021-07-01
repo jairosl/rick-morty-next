@@ -31,15 +31,13 @@ export const CardContainer = styled.main`
   margin-top: 18em;
   margin-bottom: 10em;
 
-  div {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 2em;
+  svg {
+    display: block;
   }
 
   // Small devices (landscape phones, 576px and up)
   @media (min-width: 275px) {
-    div {
+    div.Cards {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,10 +47,9 @@ export const CardContainer = styled.main`
 
   // Medium devices (tablets, 768px and up)
   @media (min-width: 768px) {
-    div {
+    div.Cards {
       max-width: 700px;
       max-width: 900px;
-
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 2em;
@@ -61,7 +58,7 @@ export const CardContainer = styled.main`
 
   // Large devices (desktops, 992px and up)
   @media (min-width: 992px) {
-    div {
+    div.Cards {
       max-width: 900px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -71,7 +68,7 @@ export const CardContainer = styled.main`
 
   // Extra large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
-    div {
+    div.Cards {
       max-width: 1000px;
     }
   }
