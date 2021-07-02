@@ -132,6 +132,7 @@ export default function Home() {
                 onClick={() => handleModalVisible(character.id)}
               />
             ))}
+
             {isMoreCharacters && !hasError && (
               <ButtonViewMore
                 onClick={() => {
@@ -148,6 +149,7 @@ export default function Home() {
             )}
           </div>
         )}
+
         {visibleModal && !!selectedCharacter && (
           <Modal
             isOpen={visibleModal}
