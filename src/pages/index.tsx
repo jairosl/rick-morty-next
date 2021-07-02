@@ -10,6 +10,7 @@ import { api } from '../services/Api';
 import { CardContainer, Container, ButtonViewMore } from '../styles/pages/home';
 import loaderAnimated from '../assets/loading-screen-loader-spinning-circle.json';
 import Modal from '../components/Modal';
+import Error from '../components/Error';
 
 interface Character {
   id: number;
@@ -34,6 +35,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [isMoreCharacters, setIsMoreCharacters] = useState(true);
   const [characters, setCharacters] = useState<Character[]>([]);
+  const [hasError, setHasError] = useState(false);
 
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character>();
@@ -51,8 +53,8 @@ export default function Home() {
     [characters]
   );
 
-  const handleViewMore = async () => {
-    const { data } = await api.get(`/character?page=${page}`);
+  const handleViewMore = async (url: string) => {
+    const { data } = await api.get(url);
     const { info, results } = data as ApiResponse;
     if (info.next) {
       setIsMoreCharacters(true);
@@ -61,21 +63,44 @@ export default function Home() {
     }
 
     setCharacters([...characters, ...results]);
+    setPage(page + 1);
   };
 
   useEffect(() => {
-    api
-      .get('/character')
-      .then(res => {
-        const { results } = res.data as ApiResponse;
-        setCharacters(results);
-        setPage(page + 1);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
+    if (searchValue === '') {
+      setPage(1);
+      api
+        .get('/character')
+        .then(res => {
+          const { results } = res.data as ApiResponse;
+          setCharacters(results);
+          setPage(page + 1);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
+    } else {
+      setLoader(true);
+      setPage(1);
+      api
+        .get(`/character?&name=${searchValue}`)
+        .then(res => {
+          const { results } = res.data as ApiResponse;
+          setCharacters(results);
+          setHasError(false);
+        })
+        // eslint-disable-next-line no-unused-vars
+        .catch(_error => {
+          // console.error(error);
+          setHasError(true);
+        })
+        .finally(() => {
+          setLoader(false);
+        });
+      setCharacters([]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchValue]);
 
   const defaultOptions = {
     loop: true,
@@ -98,16 +123,28 @@ export default function Home() {
         {loader && <Lottie options={defaultOptions} height={400} width={400} />}
         {!loader && (
           <div className="Cards">
-            {characters.map(character => (
+            {characters.map((character, index) => (
               <Card
-                key={character.id}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
                 image={character.image}
                 name={character.name}
                 onClick={() => handleModalVisible(character.id)}
               />
             ))}
-            {isMoreCharacters && (
-              <ButtonViewMore onClick={handleViewMore}>Ver Mais</ButtonViewMore>
+            {isMoreCharacters && !hasError && (
+              <ButtonViewMore
+                onClick={() => {
+                  const url =
+                    searchValue === ''
+                      ? `/character?page=${page}`
+                      : `/character?page=${page}&name=${searchValue}`;
+
+                  handleViewMore(url);
+                }}
+              >
+                Ver Mais
+              </ButtonViewMore>
             )}
           </div>
         )}
@@ -117,6 +154,10 @@ export default function Home() {
             closeModal={() => setVisibleModal(false)}
             character={selectedCharacter}
           />
+        )}
+
+        {hasError && !loader && (
+          <Error message="opss... não encontramos esse personagem" />
         )}
       </CardContainer>
     </>
