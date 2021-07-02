@@ -9,11 +9,11 @@ import { api } from '../services/Api';
 
 import { CardContainer, Container, ButtonViewMore } from '../styles/pages/home';
 import loaderAnimated from '../assets/loading-screen-loader-spinning-circle.json';
+import Modal from '../components/Modal';
 
 interface Character {
   id: number;
   name: string;
-  species: string;
   gender: string;
   image: string;
 }
@@ -35,11 +35,21 @@ export default function Home() {
   const [isMoreCharacters, setIsMoreCharacters] = useState(true);
   const [characters, setCharacters] = useState<Character[]>([]);
 
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [selectedCharacter, setSelectedCharacter] = useState<Character>();
+
   const handleChangeSearchValue = useCallback((data: string) => {
     setSearchValue(data);
   }, []);
 
-  const handleModalVisible = useCallback(() => {}, []);
+  const handleModalVisible = useCallback(
+    (id: number) => {
+      setVisibleModal(true);
+      const result = characters.filter(character => character.id === id)[0];
+      setSelectedCharacter(result);
+    },
+    [characters]
+  );
 
   const handleViewMore = async () => {
     const { data } = await api.get(`/character?page=${page}`);
@@ -93,13 +103,20 @@ export default function Home() {
                 key={character.id}
                 image={character.image}
                 name={character.name}
-                onClick={handleModalVisible}
+                onClick={() => handleModalVisible(character.id)}
               />
             ))}
             {isMoreCharacters && (
               <ButtonViewMore onClick={handleViewMore}>Ver Mais</ButtonViewMore>
             )}
           </div>
+        )}
+        {visibleModal && !!selectedCharacter && (
+          <Modal
+            isOpen={visibleModal}
+            closeModal={() => setVisibleModal(false)}
+            character={selectedCharacter}
+          />
         )}
       </CardContainer>
     </>
