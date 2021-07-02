@@ -6,6 +6,7 @@ export const Input = styled.input`
     width: 18em;
     height: 3em;
     text-align: center;
+    font-size: 20px;
   }
 
   // Medium devices (tablets, 768px and up)
