@@ -2,6 +2,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
+import { AppContextProvider } from '../contexts/Favorites';
 
 import GlobalReset from '../styles/global';
 import theme from '../styles/theme';
@@ -14,8 +15,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => (
     </Head>
 
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-      <GlobalReset />
+      <AppContextProvider>
+        <Component {...pageProps} />
+        <GlobalReset />
+      </AppContextProvider>
     </ThemeProvider>
   </>
 );
