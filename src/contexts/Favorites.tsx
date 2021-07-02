@@ -3,7 +3,6 @@ import { useState, createContext, ReactNode, useCallback } from 'react';
 type Character = {
   id: number;
   name: string;
-  species: string;
   gender: string;
   image: string;
 };
