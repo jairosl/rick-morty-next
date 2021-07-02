@@ -64,7 +64,8 @@ export default function Home() {
       .finally(() => {
         setLoader(false);
       });
-  }, [page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const defaultOptions = {
     loop: true,
