@@ -64,7 +64,7 @@ export default function Home() {
       .finally(() => {
         setLoader(false);
       });
-  }, []);
+  }, [page]);
 
   const defaultOptions = {
     loop: true,
