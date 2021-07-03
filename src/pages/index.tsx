@@ -11,6 +11,7 @@ import { CardContainer, Container, ButtonViewMore } from '../styles/pages/home';
 import loaderAnimated from '../assets/loading-screen-loader-spinning-circle.json';
 import Modal from '../components/Modal';
 import Error from '../components/Error';
+import { useAppContext } from '../contexts/Favorites';
 
 interface Character {
   id: number;
@@ -39,6 +40,8 @@ export default function Home() {
 
   const [visibleModal, setVisibleModal] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character>();
+
+  const context = useAppContext();
 
   const handleChangeSearchValue = useCallback((data: string) => {
     setSearchValue(data);
@@ -158,7 +161,7 @@ export default function Home() {
           />
         )}
 
-        {hasError && !loader && characters.length === 0 && (
+        {hasError && !loader && context.characters.length === 0 && (
           <Error message="opss... não encontramos esse personagem" />
         )}
       </CardContainer>
