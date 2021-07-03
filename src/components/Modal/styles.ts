@@ -38,6 +38,12 @@ export const Container = styled.div`
       width: 100%;
     }
 
+    div.ContainerHeader div.ContainerButtons {
+      svg {
+        cursor: pointer;
+      }
+    }
+
     div.Container img {
       border-radius: 8px;
     }

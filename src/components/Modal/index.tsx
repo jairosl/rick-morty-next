@@ -1,6 +1,7 @@
+import { FiHeart, FiXCircle } from 'react-icons/fi';
+import { IoIosHeartDislike } from 'react-icons/io';
 import ReactModal from 'react-modal';
-import { FiXCircle, FiHeart } from 'react-icons/fi';
-
+import { useAppContext } from '../../contexts/Favorites';
 import { Container } from './styles';
 
 type Character = {
@@ -28,6 +29,18 @@ const customStyles = {
 };
 
 export default function Modal({ isOpen, closeModal, character }: PropsModal) {
+  const { addCharacters, searchCharacterbyId, removeCharacter } =
+    useAppContext();
+  function handleAddCharacterFavorites(characterSelected: Character) {
+    addCharacters(characterSelected);
+  }
+
+  function handleRemoveCharacterFavorites(characterSelected: Character) {
+    removeCharacter(characterSelected.id);
+  }
+
+  const IsFavorite = searchCharacterbyId(character.id);
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -40,7 +53,20 @@ export default function Modal({ isOpen, closeModal, character }: PropsModal) {
         <div className="ContainerHeader">
           <h1>{character.name}</h1>
           <div className="ContainerButtons">
-            <FiHeart size={50} />
+            {!IsFavorite && (
+              <FiHeart
+                size={50}
+                onClick={() => handleAddCharacterFavorites(character)}
+              />
+            )}
+
+            {IsFavorite && (
+              <IoIosHeartDislike
+                size={50}
+                onClick={() => handleRemoveCharacterFavorites(character)}
+              />
+            )}
+
             <button type="button" onClick={closeModal}>
               <FiXCircle size={50} />
             </button>
