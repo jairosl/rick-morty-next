@@ -19,7 +19,7 @@ Obs.: A pagina está responsiva (Mobile first)
 Faça o clone do Projeto
 
 ```bash
-  git clone https://github.com/jairosl/rick-morty-next
+  git clone https://github.com/jairosl/rick-morty-next my-project
 ```
 
 Vá para o diretório do projeto
