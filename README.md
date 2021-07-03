@@ -1,34 +1,82 @@
-# TypeScript & Styled Components Next.js example
 
-This is a really simple project that show the usage of Next.js with TypeScript and Styled Components.
+![Logo](./.github/logo.png)
 
-## Preview
+<br/>
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+# Projeto Rick & Morty
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript-styled-components)
+Esse projeto consiste em uma unica página onde é possivel visualizar
+todos os personagens do famoso seriado Rick & Morty, nessa página é possivel
+clickar no personagem para obter mais informações alem de favoritar e desfavoritar.
+Por fim é possível ver seus personagens favoritados
 
-## Deploy your own
+Obs.: A pagina está responsiva (Mobile first)
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+<br/>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-styled-components&project-name=with-typescript-styled-components&repository-name=with-typescript-styled-components)
+## Executanto Localmente
 
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Faça o clone do Projeto
 
 ```bash
-npx create-next-app --example with-typescript-styled-components with-typescript-styled-components-app
-# or
-yarn create next-app --example with-typescript-styled-components with-typescript-styled-components-app
+  git clone https://github.com/jairosl/rick-morty-next
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Vá para o diretório do projeto
 
-## Notes
+```bash
+  cd my-project
+```
 
-This is an amalgamation of the 2 existing examples:
+Intale as Dependências
 
-- [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-- [with-styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components)
+```bash
+  npm install
+```
+
+ou
+
+```bash
+  yarn
+```
+
+Execute o comando
+
+```bash
+  npm run dev
+```
+
+ou
+
+```bash
+  yarn dev
+```
+
+<br/>
+
+## Tecnologias usadas e Features
+
+- Context api
+- Resposividade
+- React hooks
+- Lottie
+- Eslint
+- Prettier
+- Git Commitizen
+- Typescript
+- Axios
+- Styled Component
+
+<br/>
+
+## Screenshots
+
+![screen1](./.github/screen1.png)
+![screen2](./.github/screen2.png)
+![screen3](./.github/screen3.png)
+![screen4](./.github/screen4.png)
+![screen5](./.github/screen5.png)
+
+
+<br/>
+
