@@ -158,7 +158,7 @@ export default function Home() {
           />
         )}
 
-        {hasError && !loader && (
+        {hasError && !loader && characters.length === 0 && (
           <Error message="opss... não encontramos esse personagem" />
         )}
       </CardContainer>
