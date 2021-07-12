@@ -1,4 +1,7 @@
+import { ChangeEvent, useState } from 'react';
 import { Input, Wrapper } from './styles';
+
+import useDebounce from '../../hooks/Debounce';
 
 interface PropsSearch {
   text: string;
@@ -8,12 +11,20 @@ interface PropsSearch {
 }
 
 export default function Search({ text, changeValue, value }: PropsSearch) {
+  const [displayValue, setDisplayValue] = useState(value);
+  const debounceChange = useDebounce<string>(changeValue, 500);
+
+  function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
+    setDisplayValue(event.target.value);
+    debounceChange(event.target.value);
+  }
+
   return (
     <Wrapper>
       <Input
         placeholder={text}
-        value={value}
-        onChange={e => changeValue(e.target.value)}
+        value={displayValue}
+        onChange={handleOnChange}
       />
     </Wrapper>
   );
