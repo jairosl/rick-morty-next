@@ -72,6 +72,7 @@ export default function Home() {
   useEffect(() => {
     if (searchValue === '') {
       setPage(1);
+      setHasError(false);
       api
         .get('/character')
         .then(res => {
